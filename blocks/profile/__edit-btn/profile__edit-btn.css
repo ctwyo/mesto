@@ -5,5 +5,6 @@
 @media screen and (max-width: 700px) {
     .profile__edit-btn {
         padding-bottom: 14px;
+        margin: auto;
     }
 }
