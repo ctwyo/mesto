@@ -1,0 +1,12 @@
+.profile__edit_btn {
+    display: flex;
+}
+
+@media screen and (max-width: 700px) {
+    .profile__edit_btn {
+        padding-bottom: 14px;
+        min-width: 282px;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+}
