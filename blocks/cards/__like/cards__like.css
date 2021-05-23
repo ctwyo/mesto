@@ -3,13 +3,14 @@
     height: 19px;
     display: inline-block;
     padding: 0;
-    background-image: url(../../../images/like.svg);
+    background: transparent url(../../../images/like.svg) no-repeat;
     border: none;
     align-self: center;
     background-size: 100%;
-    background-repeat: no-repeat;
+    transition: opacity 0.2s ease;
 }
 
 .cards__like:hover {
     cursor: pointer;
+    opacity: 0.5;
 }
