@@ -8,11 +8,11 @@ let profileJob = document.querySelector('.profile__comment');
 let closePopup = document.querySelector('.popup__close-btn');
 
 function togglePopup() {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
     if (!popup.classList.contains('.popup_open')) {
-        popup.classList.toggle('popup_open');
+        nameInput.value = profileName.textContent;
+        jobInput.value = profileJob.textContent;
     }
+    popup.classList.toggle('popup_open');
 }
 
 function formSubmitHandler  (evt) {
