@@ -27,7 +27,7 @@ const initialCards = [
     }
   ]; 
 const popup = document.querySelector('.popup');
-const popupPhoto = document.querySelector('.popup__type_open_photo');
+const popupPhoto = document.querySelector('.popup_type_open_photo');
 //попап редактор
 const popupEdit = document.querySelector('.popup_type_edit');
 const editCloseBtn = popupEdit.querySelector('.popup__close-btn');
@@ -38,7 +38,7 @@ const saveTypeEdit = popupEdit.querySelector('.popup__button');
 const openEditPopupBtn = document.querySelector('.profile__edit');
 
 //попап добавления
-const popupNewCard = document.querySelector('.popup__type_new-card');
+const popupNewCard = document.querySelector('.popup_type_new-card');
 const newCardCloseBtn = popupNewCard.querySelector('.popup__close-btn');
 const newCardForm = popupNewCard.querySelector('.popup__form');
 const picNameInput = popupNewCard.querySelector('#title');
@@ -52,7 +52,7 @@ const profileJob = document.querySelector('.profile__comment');
 
 //template
 const cardsTemplate = document.querySelector('#element').content;
-const cardList = document.querySelector('.cards__elements');
+const templateList = document.querySelector('.templates__elements');
 const deleteBtn = document.querySelector('.cards__trash');
 
 //попап photo
@@ -66,7 +66,7 @@ initialCards.forEach(function (item) {
 });
 
 function renderCard(name, link) {
-  cardList.prepend(createCard(name, link));
+  templateList.prepend(createCard(name, link));
 }
 function createCard(name, link) {
   const card = cardsTemplate.cloneNode(true);
