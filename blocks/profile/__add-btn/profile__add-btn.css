@@ -1,4 +1,4 @@
-.profile__button {
+.profile__add-btn {
     display: flex;
     padding: 0;
     background-image: url(../../../images/add.svg);
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 700px) {
-    .profile__button {
+    .profile__add-btn {
         width: 282px;
         margin: 36px auto 0;
         background-size: 16px 16px;
