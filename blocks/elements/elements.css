@@ -1,11 +1,16 @@
-.templates__elements {
+.elements {
     padding: 0;
     margin: auto;
     list-style: none;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
-    /* grid-template-columns: repeat(3, 1fr); */
     column-gap: 17px;
     row-gap: 20px;
     max-width: 880px;
+}
+
+@media screen and (max-width: 320px) {
+    .elements {
+        padding: 0 19px 0 19px;
+    }
 }

@@ -16,17 +16,16 @@
 @import url(../blocks/profile/__comment/profile__comment.css);
 @import url(../blocks/profile/__edit/profile__edit.css);
 @import url(../blocks/profile/__container/profile__container.css);
-
 @import url(../blocks/profile/__edit-btn/profile__edit-btn.css);
 
-@import url(../blocks/cards/cards.css);
-@import url(../blocks/cards/__item/cards__item.css);
-@import url(../blocks/cards/__photo/cards__photo.css);
-@import url(../blocks/cards/__caption/cards__caption.css);
-@import url(../blocks/cards/__like/cards__like.css);
-@import url(../blocks/cards/__like/_active/cards__like_active.css);
-@import url(../blocks/cards/__container/cards__container.css);
-@import url(../blocks/cards/__trash/cards__trash.css);
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/template/__caption/template__caption.css);
+@import url(../blocks/template/__element/template__element.css);
+@import url(../blocks/template/__like/template__like.css);
+@import url(../blocks/template/__like/_active/template__like_active.css);
+@import url(../blocks/template/__photo/template__photo.css);
+@import url(../blocks/template/__trash/template__trash.css);
+@import url(../blocks/template/__container/template__container.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);
@@ -43,5 +42,3 @@
 @import url(../blocks/figure/figure.css);
 @import url(../blocks/figure/__photo/figure__photo.css);
 @import url(../blocks/figure/__caption/figure__caption.css);
-
-@import url(../blocks/template/__elements/templates__elements.css);

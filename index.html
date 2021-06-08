@@ -35,7 +35,16 @@
             </section>
 
             <section class="elements">
-                <div class="templates__elements"></div>
+                <template class="template">
+                    <li class="template__element">
+                        <button class="template__trash button-opacity" type="button"></button>
+                        <img alt="" class="template__photo">
+                        <div class="template__container">
+                            <h2 class="template__caption"></h2>
+                            <button type="button" class="template__like" aria-label="поставить лайк"></button>
+                        </div>
+                    </li>
+                </template>
             </section>
 
         </main>
@@ -79,17 +88,6 @@
         </div>
 
     </div>
-
-    <template id="element">
-            <li class="cards__item">
-                <button class="cards__trash button-opacity" type="button"></button>
-                <img alt="" class="cards__photo">
-                <div class="cards__container">
-                    <h2 class="cards__caption"></h2>
-                    <button type="button" class="cards__like" aria-label="поставить лайк"></button>
-                </div>
-            </li>
-    </template>
 
     <script src="./scripts/script.js"></script>
 </body>
