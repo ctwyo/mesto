@@ -1,5 +1,4 @@
 //карточки
-
 const initialCards = [
     {
       name: 'Архыз',
@@ -26,6 +25,7 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ]; 
+
 const popup = document.querySelector('.popup');
 const popupPhoto = document.querySelector('.popup_type_open-photo');
 //попап редактор
@@ -61,20 +61,20 @@ const photoPopupImg = document.querySelector('.figure__photo');
 const photoPopupCaption = document.querySelector('.template__caption');
 const photoPopupCloseBtn = document.querySelector('.figure__close-btn');
 
-//массив карточек
-initialCards.forEach(function (item) {
-  renderCard(item.name, item.link);
-});
-
 function renderCard(name, link) {
   elements.prepend(createCard(name, link));
 }
 function createCard(name, link) {
   const card = template.querySelector('.template__element').cloneNode(true);
-  card.querySelector('.template__caption').textContent = name;
-  card.querySelector('.template__photo').src = link;
-  card.querySelector('.template__photo').alt = name;
-  likeButtonHandle(card);
+  const cardCaption = card.querySelector('.template__caption');
+  const cardPhoto = card.querySelector('.template__photo');
+  cardCaption.textContent = name;
+  cardPhoto.src = link;
+  cardPhoto.alt = name;
+  
+  const like = card.querySelector('.template__like');
+  like.addEventListener('click', likeButtonHandle);
+
   deleteCard(card);
   openPhoto(card);
   return card;
@@ -84,35 +84,36 @@ function createCard(name, link) {
 function cardSubmitHandle(evt) {
   evt.preventDefault();
   renderCard(picNameInput.value, picLinkInput.value);
-  toggleModal(popupNewCard);
+  newCardForm.reset()
+  closeModal(popupNewCard);
 }
 
-//открытие закрытие попапов
-function toggleModal(modal) {
-  modal.classList.toggle('popup_open');
+//открытие попапов
+function openModal(modal) {
+  modal.classList.add('popup_open');
+}
+
+//закрытие попапов
+function closeModal(modal) {
+  modal.classList.remove('popup_open');
 }
 
 //попап редактор
 function openTypeEditPopup() { // открыть попап редактирования
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  toggleModal(popupEdit);
-}
-function closeTypeEditPopup() { // закрыть попап редактор
-  toggleModal(popupEdit);
+  openModal(popupEdit);
 }
 
 function profileSubmitHandle(evt) { // сохранить изменения профиля
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  toggleModal(popupEdit);
+  closeModal(popupEdit);
 }
 
 function likeButtonHandle(like) { // like
-  like.querySelector('.template__like').addEventListener('click', function(evt) {
-    evt.target.classList.toggle('template__like_active');
-  });
+  like.target.classList.toggle('template__like_active');
 }
 
 function deleteCard(card) { // удалить карточку
@@ -121,13 +122,9 @@ function deleteCard(card) { // удалить карточку
   });
 }
 
-function closePhotoPopup (){ // закрыть попап картинки
-  toggleModal(popupPhoto);
-}
-
 function openPhoto(photo) { // октрытие картинки
   photo.querySelector('.template__photo').addEventListener('click', function(evt) {
-    toggleModal(popupPhoto);
+    openModal(popupPhoto);
     photoPopupImg.src = evt.target.src;
     const cardCaption = document.querySelector('.template__photo');
     cardCaption.textContent = evt.target.alt;
@@ -137,11 +134,16 @@ function openPhoto(photo) { // октрытие картинки
 }
 
 openEditPopupBtn.addEventListener('click', openTypeEditPopup);
-editCloseBtn.addEventListener('click', closeTypeEditPopup);
+editCloseBtn.addEventListener('click', () => closeModal(popupEdit));
 editForm.addEventListener('submit', profileSubmitHandle);
 
-openNewCardPopupBtn.addEventListener('click', () => toggleModal(popupNewCard));
-newCardCloseBtn.addEventListener('click', () => toggleModal(popupNewCard));
+openNewCardPopupBtn.addEventListener('click', () => openModal(popupNewCard));
+newCardCloseBtn.addEventListener('click', () => closeModal(popupNewCard));
 newCardForm.addEventListener('submit', cardSubmitHandle);
 
-photoPopupCloseBtn.addEventListener('click', closePhotoPopup);
+photoPopupCloseBtn.addEventListener('click', () => closeModal(popupPhoto));
+
+//массив карточек
+initialCards.forEach(function (item) {
+  renderCard(item.name, item.link);
+});
