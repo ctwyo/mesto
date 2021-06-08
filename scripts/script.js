@@ -27,7 +27,7 @@ const initialCards = [
     }
   ]; 
 const popup = document.querySelector('.popup');
-const popupPhoto = document.querySelector('.popup_type_open_photo');
+const popupPhoto = document.querySelector('.popup_type_open-photo');
 //попап редактор
 const popupEdit = document.querySelector('.popup_type_edit');
 const editCloseBtn = popupEdit.querySelector('.popup__close-btn');
