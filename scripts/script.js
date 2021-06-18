@@ -1,3 +1,4 @@
+
 //карточки
 const initialCards = [
     {
@@ -61,6 +62,8 @@ const photoPopupImg = document.querySelector('.figure__photo');
 const photoPopupCaption = document.querySelector('.template__caption');
 const photoPopupCloseBtn = document.querySelector('.figure__close-btn');
 
+const popupArr = Array.from(document.querySelectorAll('.popup'))
+
 function renderCard(name, link) {
   elements.prepend(createCard(name, link));
 }
@@ -77,6 +80,9 @@ function createCard(name, link) {
 
   deleteCard(card);
   openPhoto(card);
+
+  document.addEventListener('keydown', escCloseBtn);
+
   return card;
 }
 
@@ -96,7 +102,23 @@ function openModal(modal) {
 //закрытие попапов
 function closeModal(modal) {
   modal.classList.remove('popup_open');
+  document.addEventListener('keydown', escHandle);
 }
+
+function escCloseBtn(evt) { // закрытие попапа по esc
+  const popup = document.querySelector('.popup_open');
+  if (evt.key === 'Escape') {
+    closeModal(popup);
+  }
+}
+
+popupArr.forEach((popup) => { // закрытие попапа по клику по оверлэю
+  popup.addEventListener('mousedown', function(evt) {
+    if (evt.target.classList.contains('popup_open')) {
+      closeModal(popup);
+    }
+  });
+});
 
 //попап редактор
 function openTypeEditPopup() { // открыть попап редактирования
@@ -132,6 +154,8 @@ function openPhoto(photo) { // октрытие картинки
     figureCaption.textContent = cardCaption.textContent;
   });
 }
+
+
 
 openEditPopupBtn.addEventListener('click', openTypeEditPopup);
 editCloseBtn.addEventListener('click', () => closeModal(popupEdit));
