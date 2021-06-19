@@ -90,19 +90,19 @@ function createCard(name, link) {
 function cardSubmitHandle(evt) {
   evt.preventDefault();
   renderCard(picNameInput.value, picLinkInput.value);
-  newCardForm.reset()
+  newCardForm.reset();
   closeModal(popupNewCard);
 }
 
 //открытие попапов
 function openModal(modal) {
   modal.classList.add('popup_open');
+  newCardForm.reset();
 }
 
 //закрытие попапов
 function closeModal(modal) {
   modal.classList.remove('popup_open');
-  document.addEventListener('keydown', escHandle);
 }
 
 function escCloseBtn(evt) { // закрытие попапа по esc
@@ -155,13 +155,20 @@ function openPhoto(photo) { // октрытие картинки
   });
 }
 
-
+function inactiveBtn () {
+  const button = popupNewCard.querySelector('.popup__button');
+  button.classList.add('popup__button_inactive');
+  button.setAttribute('disabled', 'true');
+}
 
 openEditPopupBtn.addEventListener('click', openTypeEditPopup);
 editCloseBtn.addEventListener('click', () => closeModal(popupEdit));
 editForm.addEventListener('submit', profileSubmitHandle);
 
-openNewCardPopupBtn.addEventListener('click', () => openModal(popupNewCard));
+openNewCardPopupBtn.addEventListener('click', () => {
+openModal(popupNewCard);
+inactiveBtn();
+});
 newCardCloseBtn.addEventListener('click', () => closeModal(popupNewCard));
 newCardForm.addEventListener('submit', cardSubmitHandle);
 

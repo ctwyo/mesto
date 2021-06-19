@@ -12,14 +12,14 @@ const hideInputError = (formElement, inputElement) => {
     errorElement.textContent = '';
 };
 
-const hasInvalidInput = (inputList) => {
+const hasinvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
         return !inputElement.validity.valid;
     });
 };
 
 const buttonActivity = (inputList, button) => {
-    if (hasInvalidInput(inputList)) {
+    if (hasinvalidInput(inputList)) {
         button.classList.add(config.inactiveButton);
         button.setAttribute('disabled', 'true');
     } else {
@@ -66,4 +66,4 @@ const config = {
     errorClass: 'popup__input-error_active',
   };
 
-  enableValidation();
+  enableValidation(config);
