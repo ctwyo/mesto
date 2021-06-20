@@ -24,7 +24,7 @@ const buttonActivity = (inputList, button) => {
         button.setAttribute('disabled', 'true');
     } else {
         button.classList.remove(config.inactiveButton);
-        button.removeAttribute('disabled');
+        button.removeAttribute('disabled', 'true');
     }
 }
 
@@ -39,6 +39,7 @@ const checkInputValidity = (formElement, inputElement) => {
 const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
     const button = formElement.querySelector(config.submitButton);
+    buttonActivity(inputList, button);
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', function () {
             checkInputValidity(formElement, inputElement)
