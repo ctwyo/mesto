@@ -36,6 +36,18 @@ const photoPopupCloseBtn = document.querySelector('.figure__close-btn');
 const buttonSaveNewCard = popupNewCard.querySelector('.popup__button');
 const popups = Array.from(document.querySelectorAll('.popup'))
 
+const config = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButton: '.popup__button',
+    inactiveButton: 'popup__button_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_active',
+    inputError: '.popup__input-error'
+};
+
+enableValidation(config);
+
 function renderCard(name, link) {
   elements.prepend(createCard(name, link));
 }
@@ -127,24 +139,11 @@ function setOpenPhotoListener(photo) { // октрытие картинки
 function resetForm(form) {
   form.reset();
   resetValidation(form);
-}
-
-function resetValidation(form) {
-  const inputElement = Array.from(form.querySelectorAll('.popup__input'));
-  const errorElement = Array.from(form.querySelectorAll('.popup__input-error'));
-  buttonSaveNewCard.classList.add('popup__button_inactive');
-  inputElement.forEach((input) => {
-    input.classList.remove('popup__input_type_error');
-  });
-
-  errorElement.forEach((error) => {
-    error.classList.remove('popup__input-error_active');
-  });
+  disableButton();
 }
 
 openEditPopupBtn.addEventListener('click', () => {
 openTypeEditPopup();
-resetValidation(popupEdit);
 });
 editCloseBtn.addEventListener('click', () => closeModal(popupEdit));
 editForm.addEventListener('submit', submitEditProfileForm);
@@ -153,7 +152,10 @@ openNewCardPopupBtn.addEventListener('click', () => {
 openModal(popupNewCard);
 resetForm(newCardForm);
 });
-newCardCloseBtn.addEventListener('click', () => closeModal(popupNewCard));
+
+newCardCloseBtn.addEventListener('click', () => {
+  closeModal(popupNewCard);
+});
 newCardForm.addEventListener('submit', submitAddCardForm);
 
 photoPopupCloseBtn.addEventListener('click', () => closeModal(popupPhoto));
