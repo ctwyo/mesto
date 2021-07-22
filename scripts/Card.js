@@ -9,10 +9,10 @@ class Card {
 
     _getTemplate() {
         const cardElement = document
-        .querySelector('.template')
-        .content
-        .querySelector('.template__element')
-        .cloneNode(true);
+            .querySelector(this._cardSelector)
+            .content
+            .querySelector('.template__element')
+            .cloneNode(true);
 
         return cardElement;
     }
@@ -21,11 +21,11 @@ class Card {
         this._element = this._getTemplate();
         this._setEventListeners();
 
-        this._element.querySelector('.template__photo').src = `${this._link}`;
-        this._element.querySelector('.template__photo').alt = `${this._name}`;
-        this._element.querySelector('.template__caption').textContent = `${this._name}`;
+        this._photo = this._element.querySelector('.template__photo');
+        this._caption = this._element.querySelector('.template__caption');
+        this._photo.src = this._link;
+        this._photo.alt, this._caption.textContent = this._name;
         
-
         return this._element;
     }
 

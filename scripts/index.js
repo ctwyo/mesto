@@ -4,7 +4,6 @@ import { initialCards } from './initial-cards.js';
 
 export { openModal, popupPhoto, photoPopupImg, cardCaption,  figureCaption, config};
 
-const openPopup = document.querySelector('.popup_open');
 const popupPhoto = document.querySelector('.popup_type_open-photo');
 //попап редактор
 const popupEdit = document.querySelector('.popup_type_edit');
@@ -29,18 +28,14 @@ const profileJob = document.querySelector('.profile__comment');
 //template
 const template = document.querySelector('.template').content;
 
-const templateList = document.querySelector('.template__element');
-const deleteBtn = document.querySelector('.template__trash');
 const elements = document.querySelector('.elements');
 const cardCaption = template.querySelector('.template__photo');
 const figureCaption = document.querySelector('.figure__caption');
 
 //попап photo
 const photoPopupImg = document.querySelector('.figure__photo');
-const photoPopupCaption = document.querySelector('.template__caption');
 const photoPopupCloseBtn = document.querySelector('.figure__close-btn');
 
-const buttonSaveNewCard = popupNewCard.querySelector('.popup__button');
 const popups = Array.from(document.querySelectorAll('.popup'))
 
 const config = {
@@ -54,8 +49,14 @@ const config = {
     templateLike: '.template__like'
 };
 
+const editProfileValidation = new FormValidator(config, popupEdit);
+editProfileValidation.enableValidation();
+
+const editNewCardValidation = new FormValidator(config, popupNewCard);
+editNewCardValidation.enableValidation();
+
 function renderCard(item) {
-  const card = new Card(item);
+  const card = new Card(item, 'template');
   const cardElement = card.createCard();
   elements.prepend(cardElement);
 }
@@ -73,12 +74,13 @@ function submitAddCardForm(evt) {
   closeModal(popupNewCard);
 }
 
-newCardForm.addEventListener('submit', submitAddCardForm);
-
 //открытие попапов
 function openModal(modal) {
   modal.classList.add('popup_open');
   document.addEventListener('keydown', closeByEsc);
+  editNewCardValidation.resetValidation(popupNewCard);
+  editProfileValidation.resetValidation(popupEdit);
+  disableSaveButton();
 }
 
 //закрытие попапов
@@ -92,6 +94,12 @@ function closeByEsc(evt) { // закрытие попапа по esc
   if (evt.key === 'Escape') {
     closeModal(popup);
   }
+}
+
+function disableSaveButton() {
+  const popup = document.querySelector('.popup_open');
+  const btn = popup.querySelector(config.submitButton);
+  btn.classList.add(config.inactiveButton);
 }
 
 popups.forEach((popup) => { // закрытие попапа по клику по оверлэю
@@ -120,21 +128,9 @@ function resetForm(form) { // очистить форму
   form.reset();
  }
 
- function resetValidation(form) {
-  const inputElement = Array.from(form.querySelectorAll(config.inputSelector));
-  const errorElement = Array.from(form.querySelectorAll(config.inputError));
-  
-  inputElement.forEach((input) => {
-      input.classList.remove(config.inputErrorClass);
-  }); 
-  errorElement.forEach((error) => {
-      error.classList.remove(config.errorClass);
-  });
- }
-
 openEditPopupBtn.addEventListener('click', () => {
 openTypeEditPopup();
-resetValidation(editForm);
+//resetValidation(editForm);
 });
 editCloseBtn.addEventListener('click', () => closeModal(popupEdit));
 editForm.addEventListener('submit', submitEditProfileForm);
@@ -142,7 +138,7 @@ editForm.addEventListener('submit', submitEditProfileForm);
 openNewCardPopupBtn.addEventListener('click', () => {
 openModal(popupNewCard);
 resetForm(newCardForm);
-resetValidation(newCardForm);
+//resetValidation(newCardForm);
 });
 
 newCardCloseBtn.addEventListener('click', () => {
@@ -151,13 +147,9 @@ newCardCloseBtn.addEventListener('click', () => {
 
 photoPopupCloseBtn.addEventListener('click', () => closeModal(popupPhoto));
 
+newCardForm.addEventListener('submit', submitAddCardForm);
+
   //массив карточек
 initialCards.forEach(function (item) {
   renderCard(item);
 });
-
-const editProfileValidation = new FormValidator(config, popupEdit);
-editProfileValidation.enableValidation();
-
-const editNewCardValidation = new FormValidator(config, popupNewCard);
-editNewCardValidation.enableValidation();

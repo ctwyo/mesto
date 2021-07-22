@@ -11,7 +11,7 @@ export default class FormValidator {
         this._templateLike = config.templateLike;
         this._formElement = formElement;
 
-        this._buttonElement = formElement.querySelector(config.submitButton);
+        this._buttonElement = this._formElement.querySelector('.popup__button');
         this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
         }
 
@@ -30,16 +30,18 @@ export default class FormValidator {
             errorElement.textContent = '';
         }
 
-        // disableButton = () => {
-        //     const popup = document.querySelector('.popup_open');
-        //     const btn = popup.querySelector(this._inactiveButton);
-        //     btn.classList.add(this._inactiveButton);
-        // }
-
         _hasInvalidInput = () => {
             return this._inputList.some((inputElement) => {
                 return !inputElement.validity.valid;
             });
+        }
+
+        _checkInputValidity = (inputElement) => {
+            if (!inputElement.validity.valid) {
+                this._showInputError(inputElement);
+            } else {
+                this._hideInputError(inputElement);
+            }
         }
 
         _buttonActivity = () => {
@@ -52,14 +54,17 @@ export default class FormValidator {
             }
         }
 
-        _checkInputValidity = (inputElement) => {
-            if (!inputElement.validity.valid) {
-                this._showInputError(inputElement);
-            } else {
-                this._hideInputError(inputElement);
-                this._buttonActivity();
-            }
-        }
+         resetValidation = (popup) => {
+            const inputElement = Array.from(popup.querySelectorAll(this._inputSelector));
+            const errorElement = Array.from(popup.querySelectorAll(this._inputError));
+            
+            inputElement.forEach((input) => {
+                input.classList.remove(this._inputErrorClass);
+            }); 
+            errorElement.forEach((error) => {
+                error.classList.remove(this._errorClass);
+            });
+           }
 
         _setEventListener = () => {
             const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
